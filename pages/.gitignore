@@ -1,0 +1,6 @@
+# Folders
+!/api
+
+# Files
+!/_app.tsx
+!/index.tsx
