@@ -22,5 +22,6 @@
     "dev": "next dev",
     "lint": "eslint .",
     "start": "next start"
-  }
+  },
+  "type": "module"
 }

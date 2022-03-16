@@ -10,6 +10,7 @@ module.exports = {
     "/.pnp.loader.mjs",
     "/.yarn/**/*",
   ],
+  parserOptions: { sourceType: "module" },
   root: true,
   rules: {
     "func-style": "off",
