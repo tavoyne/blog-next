@@ -3,6 +3,7 @@
 !.gitignore
 
 # Folders
+!/.vscode
 !/pages
 !/public
 !/styles
