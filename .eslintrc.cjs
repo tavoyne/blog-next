@@ -1,7 +1,7 @@
 require("@rushstack/eslint-patch/modern-module-resolution");
 
 module.exports = {
-  extends: ["@steadier"],
+  extends: ["eslint-config-next", "@steadier"],
   ignorePatterns: [
     "!.*",
     "**/*.d.ts",
