@@ -22,6 +22,7 @@ module.exports = {
     "node/no-unpublished-require": "off",
     "node/no-unsupported-features/es-syntax": "off",
     "prefer-arrow-callback": "off",
+    "require-await": "off",
     strict: "off",
   },
 };

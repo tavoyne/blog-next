@@ -4,8 +4,11 @@
 
 # Folders
 !/.vscode
+!/components
+!/lib
 !/pages
 !/public
+!/posts
 !/styles
 
 # Files

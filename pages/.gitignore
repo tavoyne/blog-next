@@ -1,5 +1,6 @@
 # Folders
 !/api
+!/posts
 
 # Files
 !/_app.tsx
