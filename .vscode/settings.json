@@ -4,7 +4,6 @@
   "editor.formatOnSave": true,
   "eslint.nodePath": ".yarn/sdks",
   "eslint.validate": ["json", "json5", "jsonc", "yaml", "yml"],
-  "files.associations": { ".firebaserc": "json" },
   "prettier.prettierPath": ".yarn/sdks/prettier/index.js",
   "search.exclude": { "**/.pnp.*": true, "**/.yarn": true },
   "typescript.enablePromptUseWorkspaceTsdk": true,
