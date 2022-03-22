@@ -1,13 +1,23 @@
-import { InferGetStaticPropsType } from "next";
+import type {
+  GetStaticPropsContext,
+  GetStaticPropsResult,
+  InferGetStaticPropsType,
+} from "next";
 import Head from "next/head";
 
 import Date from "../../components/Date";
 import Layout from "../../components/Layout";
 import { getPost, getPostIds } from "../../lib/posts";
 import utilStyles from "../../styles/utils.module.css";
+import type { IPost } from "../../types/post";
 
-export async function getStaticProps({ params }: any) {
-  const post = (await getPost(params.id))!;
+export async function getStaticProps({
+  params,
+}: GetStaticPropsContext): Promise<GetStaticPropsResult<{ post: IPost }>> {
+  const post = await getPost(params!.id as string);
+  if (!post) {
+    return { notFound: true };
+  }
   return { props: { post } };
 }
 

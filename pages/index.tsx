@@ -1,4 +1,4 @@
-import type { InferGetStaticPropsType } from "next";
+import type { GetStaticPropsResult, InferGetStaticPropsType } from "next";
 import Head from "next/head";
 import Link from "next/link";
 
@@ -6,8 +6,11 @@ import Date from "../components/Date";
 import Layout, { siteTitle } from "../components/Layout";
 import { getPosts } from "../lib/posts";
 import utilStyles from "../styles/utils.module.css";
+import type { IPostMeta } from "../types/post";
 
-export async function getStaticProps() {
+export async function getStaticProps(): Promise<
+  GetStaticPropsResult<{ posts: IPostMeta[] }>
+> {
   const posts = await getPosts();
   return { props: { posts } };
 }
