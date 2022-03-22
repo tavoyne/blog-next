@@ -3,40 +3,20 @@ import { marked } from "marked";
 import { readFile, readdir } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { Infer, assert, assign, object, string } from "superstruct";
+import { assert } from "superstruct";
+
+import { PostAttributes } from "../types/post";
+import type { IPost, IPostMeta } from "../types/post";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const postsPath = join(__dirname, "..", "posts");
 
 /* -------------------------------------------------------------------------------------------------
- * Structs
- * -----------------------------------------------------------------------------------------------*/
-
-const PostAttributes = object({
-  creationDate: string(),
-  description: string(),
-  title: string(),
-});
-
-const PostMeta = assign(
-  PostAttributes,
-  object({
-    id: string(),
-  })
-);
-
-const Post = assign(PostMeta, object({ html: string() }));
-
-export type Post = Infer<typeof Post>;
-
-/* -------------------------------------------------------------------------------------------------
  * getPost
  * -----------------------------------------------------------------------------------------------*/
 
-export async function getPost(
-  id: Infer<typeof Post>["id"]
-): Promise<Infer<typeof Post> | null> {
+export async function getPost(id: IPost["id"]): Promise<IPost | null> {
   const postPath = join(postsPath, `${id}.md`);
   let content: Awaited<ReturnType<typeof readFile>>;
   try {
@@ -61,7 +41,7 @@ export async function getPost(
  * getPostIds
  * -----------------------------------------------------------------------------------------------*/
 
-export async function getPostIds(): Promise<Infer<typeof Post>["id"][]> {
+export async function getPostIds(): Promise<IPost["id"][]> {
   return (await readdir(postsPath))
     .filter((fileName) => {
       return fileName.endsWith(".md");
@@ -75,7 +55,7 @@ export async function getPostIds(): Promise<Infer<typeof Post>["id"][]> {
  * getPosts
  * -----------------------------------------------------------------------------------------------*/
 
-export async function getPosts(): Promise<Infer<typeof PostMeta>[]> {
+export async function getPosts(): Promise<IPostMeta[]> {
   const fileNames = (await readdir(postsPath)).filter((fileName) => {
     return fileName.endsWith(".md");
   });
