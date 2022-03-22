@@ -1,59 +1,97 @@
-/* eslint-disable node/no-sync */
-import matter from "gray-matter";
-import fs from "node:fs";
-import path from "node:path";
-import { remark } from "remark";
-import html from "remark-html";
+import fm from "front-matter";
+import { marked } from "marked";
+import { readFile, readdir } from "node:fs/promises";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
+import { Infer, assert, assign, object, string } from "superstruct";
 
-const postsDirectory = path.join(process.cwd(), "posts");
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
-export function getAllPostIds() {
-  const fileNames = fs.readdirSync(postsDirectory);
-  return fileNames
-    .filter((filename) => {
-      return filename.endsWith(".md");
-    })
-    .map((fileName) => {
-      return {
-        params: {
-          id: fileName.replace(/\.md$/u, ""),
-        },
-      };
-    });
-}
+const postsPath = join(__dirname, "..", "posts");
 
-export async function getPostData(id: string) {
-  const fullPath = path.join(postsDirectory, `${id}.md`);
-  const fileContents = fs.readFileSync(fullPath, "utf8");
-  const matterResult = matter(fileContents);
-  const processedContent = await remark()
-    .use(html)
-    .process(matterResult.content);
-  const contentHtml = processedContent.toString();
+/* -------------------------------------------------------------------------------------------------
+ * Structs
+ * -----------------------------------------------------------------------------------------------*/
+
+const PostAttributes = object({
+  creationDate: string(),
+  description: string(),
+  title: string(),
+});
+
+const PostMeta = assign(
+  PostAttributes,
+  object({
+    id: string(),
+  })
+);
+
+const Post = assign(PostMeta, object({ html: string() }));
+
+export type Post = Infer<typeof Post>;
+
+/* -------------------------------------------------------------------------------------------------
+ * getPost
+ * -----------------------------------------------------------------------------------------------*/
+
+export async function getPost(
+  id: Infer<typeof Post>["id"]
+): Promise<Infer<typeof Post> | null> {
+  const postPath = join(postsPath, `${id}.md`);
+  let content: Awaited<ReturnType<typeof readFile>>;
+  try {
+    content = await readFile(postPath);
+  } catch (err) {
+    if (err === "ENOENT") {
+      return null;
+    }
+    throw err;
+  }
+  const { attributes, body } = fm(content.toString());
+  assert(attributes, PostAttributes);
+  const html = marked(body);
   return {
-    contentHtml,
+    html,
     id,
-    ...matterResult.data,
+    ...attributes,
   };
 }
 
-export function getSortedPostsData() {
-  const fileNames = fs.readdirSync(postsDirectory).filter((filename) => {
-    return filename.endsWith(".md");
+/* -------------------------------------------------------------------------------------------------
+ * getPostIds
+ * -----------------------------------------------------------------------------------------------*/
+
+export async function getPostIds(): Promise<Infer<typeof Post>["id"][]> {
+  return (await readdir(postsPath))
+    .filter((fileName) => {
+      return fileName.endsWith(".md");
+    })
+    .map((fileName) => {
+      return fileName.replace(/\.md$/u, "");
+    });
+}
+
+/* -------------------------------------------------------------------------------------------------
+ * getPosts
+ * -----------------------------------------------------------------------------------------------*/
+
+export async function getPosts(): Promise<Infer<typeof PostMeta>[]> {
+  const fileNames = (await readdir(postsPath)).filter((fileName) => {
+    return fileName.endsWith(".md");
   });
-  const allPostsData = fileNames.map((fileName) => {
-    const id = fileName.replace(/\.md$/u, "");
-    const fullPath = path.join(postsDirectory, fileName);
-    const fileContents = fs.readFileSync(fullPath, "utf8");
-    const matterResult = matter(fileContents);
-    return { id, ...matterResult.data };
-  });
-  return allPostsData.sort(({ date: a }: any, { date: b }: any) => {
-    if (a < b) {
-      return 1;
-    } else if (a > b) {
-      return -1;
-    }
-    return 0;
+
+  return (
+    await Promise.all(
+      fileNames.map(async (fileName) => {
+        return readFile(join(postsPath, fileName));
+      })
+    )
+  ).map((content, index) => {
+    const { attributes } = fm(content.toString());
+    assert(attributes, PostAttributes);
+    return {
+      id: fileNames[index].replace(/\.md$/u, ""),
+      ...attributes,
+    };
   });
 }
