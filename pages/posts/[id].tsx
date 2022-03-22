@@ -1,9 +1,9 @@
+import { InferGetStaticPropsType } from "next";
 import Head from "next/head";
 
 import Date from "../../components/Date";
 import Layout from "../../components/Layout";
 import { getPost, getPostIds } from "../../lib/posts";
-import type { Post } from "../../lib/posts";
 import utilStyles from "../../styles/utils.module.css";
 
 export async function getStaticProps({ params }: any) {
@@ -23,7 +23,7 @@ export async function getStaticPaths() {
 
 export default function Post({
   post,
-}: Awaited<ReturnType<typeof getStaticProps>>["props"]) {
+}: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <Layout home={false}>
       <Head>

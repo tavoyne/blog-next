@@ -1,4 +1,4 @@
-import type { GetStaticProps } from "next";
+import type { InferGetStaticPropsType } from "next";
 import Head from "next/head";
 import Link from "next/link";
 
@@ -14,7 +14,7 @@ export async function getStaticProps() {
 
 export default function Home({
   posts,
-}: Awaited<ReturnType<typeof getStaticProps>>["props"]) {
+}: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <Layout home>
       <Head>
