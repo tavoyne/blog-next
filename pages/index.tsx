@@ -4,6 +4,7 @@ import Image from "next/image";
 
 import PostList from "../components/PostList";
 import { getPosts } from "../lib/posts";
+import ProfileJPG from "../public/images/profile.jpg";
 import type { IPostMeta } from "../types/post";
 
 export async function getStaticProps(): Promise<
@@ -23,7 +24,7 @@ export default function Home({
       </Head>
       <Image
         priority
-        src="/images/profile.jpg"
+        src={ProfileJPG}
         height={128}
         width={128}
         alt="Théophile Avoyne"
