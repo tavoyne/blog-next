@@ -6,9 +6,7 @@ import type {
 import Head from "next/head";
 
 import Date from "../../components/Date";
-import Layout from "../../components/Layout";
 import { getPost, getPostIds } from "../../lib/posts";
-import utilStyles from "../../styles/utils.module.css";
 import type { IPost } from "../../types/post";
 
 export async function getStaticProps({
@@ -35,17 +33,17 @@ export default function Post({
   post,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
-    <Layout home={false}>
+    <>
       <Head>
-        <title>{post.title}</title>
+        <title key="title">{post.title}</title>
       </Head>
       <article>
-        <h1 className={utilStyles.headingXl}>{post.title}</h1>
-        <div className={utilStyles.lightText}>
+        <h1>{post.title}</h1>
+        <div>
           <Date dateString={post.creationDate} />
         </div>
         <div dangerouslySetInnerHTML={{ __html: post.html }} />
       </article>
-    </Layout>
+    </>
   );
 }
