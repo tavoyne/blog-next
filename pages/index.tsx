@@ -5,10 +5,9 @@ import Image from "next/image";
 import PostList from "../components/PostList";
 import { getPosts } from "../lib/posts";
 import ProfileJPG from "../public/images/profile.jpg";
-import type { IPostMeta } from "../types/post";
 
 export async function getStaticProps(): Promise<
-  GetStaticPropsResult<{ posts: IPostMeta[] }>
+  GetStaticPropsResult<{ posts: Awaited<ReturnType<typeof getPosts>> }>
 > {
   const posts = await getPosts();
   return { props: { posts } };
