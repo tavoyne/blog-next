@@ -1,4 +1,5 @@
 import type {
+  GetStaticPathsResult,
   GetStaticPropsContext,
   GetStaticPropsResult,
   InferGetStaticPropsType,
@@ -9,24 +10,33 @@ import Date from "../../components/Date";
 import { getPost, getPostIds } from "../../lib/posts";
 import type { IPost } from "../../types/post";
 
-export async function getStaticProps({
-  params,
-}: GetStaticPropsContext): Promise<GetStaticPropsResult<{ post: IPost }>> {
-  const post = await getPost(params!.id as string);
-  if (!post) {
-    return { notFound: true };
-  }
-  return { props: { post } };
-}
-
-export async function getStaticPaths() {
+export async function getStaticPaths(): Promise<
+  GetStaticPathsResult<{ id: string }>
+> {
   const paths = await getPostIds();
   return {
     fallback: false,
     paths: paths.map((path) => {
-      return { params: { id: path } };
+      return {
+        params: {
+          id: path,
+        },
+      };
     }),
   };
+}
+
+export async function getStaticProps({
+  params,
+}: GetStaticPropsContext<{ id: string }>): Promise<
+  GetStaticPropsResult<{ post: IPost }>
+> {
+  const post = await getPost(params!.id);
+  return post
+    ? {
+        props: { post },
+      }
+    : { notFound: true };
 }
 
 export default function Post({
