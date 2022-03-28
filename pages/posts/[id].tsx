@@ -7,8 +7,8 @@ import type {
 import Head from "next/head";
 
 import Date from "../../components/Date";
-import { getPost, getPostIds } from "../../lib/posts";
 import type { IPost } from "../../types/post";
+import { getPost, getPostIds } from "../../utils/posts";
 
 export async function getStaticPaths(): Promise<
   GetStaticPathsResult<{ id: string }>

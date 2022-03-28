@@ -5,12 +5,11 @@
 # Folders
 !/.vscode
 !/components
-!/lib
 !/pages
 !/public
 !/posts
-!/styles
 !/types
+!/utils
 
 # Files
 !/.eslintrc.cjs
