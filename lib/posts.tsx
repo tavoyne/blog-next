@@ -59,7 +59,6 @@ export async function getPosts(): Promise<IPostMeta[]> {
   const fileNames = (await readdir(postsPath)).filter((fileName) => {
     return fileName.endsWith(".md");
   });
-
   return (
     await Promise.all(
       fileNames.map(async (fileName) => {
