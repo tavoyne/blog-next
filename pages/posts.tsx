@@ -10,6 +10,7 @@ export async function getStaticProps(): Promise<
   const posts = await getPosts();
   return { props: { posts } };
 }
+
 export default function Posts({
   posts,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
