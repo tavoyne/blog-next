@@ -3,5 +3,6 @@
 
 # Files
 !/_app.tsx
+!/_document.tsx
 !/index.tsx
 !/posts.tsx
