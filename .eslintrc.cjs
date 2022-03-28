@@ -14,6 +14,7 @@ module.exports = {
   root: true,
   rules: {
     "func-style": "off",
+    "import/no-anonymous-default-export": "off",
     "no-duplicate-imports": "off",
     "no-underscore-dangle": "off",
     "no-unused-vars": "off",
