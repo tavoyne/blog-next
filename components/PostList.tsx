@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import type { IPostMeta } from "../types/post";
+import type { IPostMeta } from "../structs/post";
 import Date from "./Date";
 
 export interface PostListProps {

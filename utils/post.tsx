@@ -5,8 +5,8 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { assert } from "superstruct";
 
-import { PostAttributes } from "../types/post";
-import type { IPost, IPostMeta } from "../types/post";
+import { PostAttributes } from "../structs/post";
+import type { IPost, IPostMeta } from "../structs/post";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
