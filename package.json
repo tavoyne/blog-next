@@ -16,10 +16,11 @@
     "@types/react": "^17.0.41",
     "eslint": "^8.11.0",
     "eslint-config-next": "^12.1.0",
+    "jest": "^27.5.1",
     "prettier": "^2.6.0",
     "typescript": "^4.6.2"
   },
-  "name": "blog",
+  "name": "blog-next",
   "packageManager": "yarn@3.2.0",
   "private": true,
   "scripts": {
@@ -27,6 +28,7 @@
     "lint": "eslint .",
     "serve": "next dev",
     "start": "next start",
+    "test": "jest",
     "typecheck": "tsc"
   },
   "type": "module"

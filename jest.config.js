@@ -1,0 +1,1 @@
+export default { passWithNoTests: true };

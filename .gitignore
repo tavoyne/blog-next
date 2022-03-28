@@ -15,6 +15,7 @@
 !/.eslintrc.cjs
 !/.prettierignore
 !/.yarnrc.yml
+!/jest.config.js
 !/next-env.d.ts
 !/next.config.js
 !/package.json
