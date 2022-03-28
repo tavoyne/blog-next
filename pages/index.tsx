@@ -48,6 +48,12 @@ export default function Home({
           lorem, imperdiet eu erat ut, dignissim hendrerit magna. Aliquam erat
           volutpat.
         </p>
+        <p>
+          <a href="https://twitter.com/tavoyne">Twitter</a>
+        </p>
+        <p>
+          <a href="mailto:me@tavoyne.com">me@tavoyne.com</a>
+        </p>
       </section>
       <PostList posts={posts} />
     </>
