@@ -24,9 +24,10 @@
   "private": true,
   "scripts": {
     "build": "next build",
-    "dev": "next dev",
     "lint": "eslint .",
-    "start": "next start"
+    "serve": "next dev",
+    "start": "next start",
+    "typecheck": "tsc"
   },
   "type": "module"
 }
