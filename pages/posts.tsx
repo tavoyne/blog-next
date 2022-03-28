@@ -3,7 +3,7 @@ import Head from "next/head";
 
 import PostList from "../components/PostList";
 import type { IPostMeta } from "../types/post";
-import { getPosts } from "../utils/posts";
+import { getPosts } from "../utils/post";
 
 export async function getStaticProps(): Promise<
   GetStaticPropsResult<{ posts: IPostMeta[] }>
