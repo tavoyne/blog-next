@@ -3,9 +3,10 @@ import Head from "next/head";
 
 import PostList from "../components/PostList";
 import { getPosts } from "../lib/posts";
+import type { IPostMeta } from "../types/post";
 
 export async function getStaticProps(): Promise<
-  GetStaticPropsResult<{ posts: Awaited<ReturnType<typeof getPosts>> }>
+  GetStaticPropsResult<{ posts: IPostMeta[] }>
 > {
   const posts = await getPosts();
   return { props: { posts } };
