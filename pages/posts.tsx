@@ -2,8 +2,8 @@ import type { GetStaticPropsResult, InferGetStaticPropsType } from "next";
 import Head from "next/head";
 
 import PostList from "../components/PostList";
+import { getPosts } from "../lib/post";
 import type { IPostMeta } from "../structs/post";
-import { getPosts } from "../utils/post";
 
 export async function getStaticProps(): Promise<
   GetStaticPropsResult<{ posts: IPostMeta[] }>

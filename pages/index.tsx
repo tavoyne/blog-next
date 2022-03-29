@@ -3,9 +3,9 @@ import Head from "next/head";
 import Image from "next/image";
 
 import PostList from "../components/PostList";
+import { getPosts } from "../lib/post";
 import ProfileJPG from "../public/images/profile.jpg";
 import type { IPostMeta } from "../structs/post";
-import { getPosts } from "../utils/post";
 
 export async function getStaticProps(): Promise<
   GetStaticPropsResult<{ posts: IPostMeta[] }>
