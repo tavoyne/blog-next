@@ -25,7 +25,7 @@
   "private": true,
   "scripts": {
     "build": "next build",
-    "lint": "eslint .",
+    "lint": "next lint",
     "serve": "next dev",
     "start": "next start",
     "test": "jest",

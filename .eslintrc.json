@@ -1,18 +1,16 @@
-require("@rushstack/eslint-patch/modern-module-resolution");
-
-module.exports = {
-  extends: ["eslint-config-next", "@steadier"],
-  ignorePatterns: [
+{
+  "extends": ["eslint-config-next", "@steadier"],
+  "ignorePatterns": [
     "!.*",
     "**/*.d.ts",
     "/.next/**/*",
     "/.pnp.cjs",
     "/.pnp.loader.mjs",
-    "/.yarn/**/*",
+    "/.yarn/**/*"
   ],
-  parserOptions: { sourceType: "module" },
-  root: true,
-  rules: {
+  "parserOptions": { "sourceType": "module" },
+  "root": true,
+  "rules": {
     "func-style": "off",
     "import/no-anonymous-default-export": "off",
     "no-duplicate-imports": "off",
@@ -24,6 +22,6 @@ module.exports = {
     "node/no-unsupported-features/es-syntax": "off",
     "prefer-arrow-callback": "off",
     "require-await": "off",
-    strict: "off",
-  },
-};
+    "strict": "off"
+  }
+}

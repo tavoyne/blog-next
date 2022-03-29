@@ -12,7 +12,7 @@
 !/structs
 
 # Files
-!/.eslintrc.cjs
+!/.eslintrc.json
 !/.prettierignore
 !/.yarnrc.yml
 !/jest.config.js
