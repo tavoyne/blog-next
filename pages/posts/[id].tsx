@@ -13,16 +13,12 @@ import type { IPost } from "../../structs/post";
 export async function getStaticPaths(): Promise<
   GetStaticPathsResult<{ id: string }>
 > {
-  const paths = await getPostIds();
+  const paths = (await getPostIds()).map((path) => {
+    return { params: { id: path } };
+  });
   return {
     fallback: false,
-    paths: paths.map((path) => {
-      return {
-        params: {
-          id: path,
-        },
-      };
-    }),
+    paths,
   };
 }
 
@@ -32,11 +28,7 @@ export async function getStaticProps({
   GetStaticPropsResult<{ post: IPost }>
 > {
   const post = await getPost(params!.id);
-  return post
-    ? {
-        props: { post },
-      }
-    : { notFound: true };
+  return post ? { props: { post } } : { notFound: true };
 }
 
 export default function Post({
