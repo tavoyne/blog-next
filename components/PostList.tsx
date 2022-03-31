@@ -10,7 +10,7 @@ export interface PostListProps {
 export default function PostList({ posts }: PostListProps) {
   return (
     <section>
-      <h2>Posts</h2>
+      <h1>Posts</h1>
       <ul>
         {posts.map(({ creationDate, id, title }) => {
           return (

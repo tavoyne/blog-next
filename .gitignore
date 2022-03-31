@@ -10,6 +10,7 @@
 !/posts
 !/public
 !/structs
+!/styles
 
 # Files
 !/.eslintrc.json

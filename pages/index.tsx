@@ -29,7 +29,7 @@ export default function Home({
         width={128}
         alt="Théophile Avoyne"
       />
-      <h1>Hey, I&apos;m Théophile Avoyne</h1>
+      <h1>About</h1>
       <section>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. In
@@ -47,12 +47,6 @@ export default function Home({
           ligula. Duis consectetur lacus eu nunc porta porttitor. Nullam est
           lorem, imperdiet eu erat ut, dignissim hendrerit magna. Aliquam erat
           volutpat.
-        </p>
-        <p>
-          <a href="https://twitter.com/tavoyne">Twitter</a>
-        </p>
-        <p>
-          <a href="mailto:me@tavoyne.com">me@tavoyne.com</a>
         </p>
       </section>
       <PostList posts={posts} />
