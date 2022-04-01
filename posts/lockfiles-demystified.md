@@ -16,7 +16,7 @@ A lockfile is a file that keeps track of the exact versions your package manager
 - [Introduction](#introduction)
 - [The problem](#the-problem)
 - [How does a lockfile work?](#how-does-a-lockfile-work)
-- [Why is it awesome?](#)
+- [Why is it awesome?](#why-is-it-awesome)
 - [Lockfiles aren't pure sunshine](#)
 - [Distributed libraries](#distributed-libraries)
 - [Lockfiles and Git](#)
@@ -83,6 +83,29 @@ react@^17.0.0:
 Check out the first key/value pair. This basically means that the `react` dependency you specified as a range in your `package.json` file (`react@^17.0.0`) was resolved to the `17.0.2` _exact_ version of `react`.
 
 If you run an `install` command again, the package manager will notice that there's a lockfile lying there and skip the resolution step for already-resolved dependencies. Let's say that `react` releases version `17.0.3` in the middle of your two `install` commands, the package manager would still resolve `^17.0.0` to `17.0.2`, thanks to the lockfile.
+
+## Why is it awesome?
+
+Now you might be thinking:
+
+> _« Ok so I'm stuck forever with version `17.0.2`. What's the point? What if I actually wanted `react` to be upgraded to `17.0.3`? »_
+
+Well, it's true that the `react` version is kind of _locked_ here. But it's not true that you're stuck with it. Actually, you can decide to upgrade at any time. And that's the key takeaway. Thanks to the lockfile, the package manager can give full power to you. If you don't do anything, nothing should change. In other words, two subsequent `install` commands should always produce the same results. This is called determinism: it's when no randomness is involved in the process.
+
+So, whether or not to upgrade to `17.0.3` is _your_ decision. And you express it using a simple command: `upgrade`.
+
+**Taking back our last example**. Should you run `yarn upgrade react` (or `npm upgrade react`) after version `17.0.3` of `react` was released, your `yarn.lock` (or `package-lock.json`) file would be updated that way:
+
+```
+# ...
+
+react@^17.0.0:
+  version "17.0.3"
+```
+
+> ✨ Pro tip
+>
+> Yarn comes with a very handy [upgrade-interactive](https://classic.yarnpkg.com/lang/en/docs/cli/upgrade-interactive/) command that displays all outdated packages and lets you choose which one to upgrade. Check out the [npm-check](https://www.npmjs.com/package/npm-check) package for an npm equivalent.
 
 ## Distributed libraries
 
