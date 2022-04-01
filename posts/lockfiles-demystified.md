@@ -17,9 +17,10 @@ A lockfile is a file that keeps track of the exact versions your package manager
 - [The problem](#the-problem)
 - [How does a lockfile work?](#how-does-a-lockfile-work)
 - [Why is it awesome?](#why-is-it-awesome)
-- [Lockfiles aren't pure sunshine](#)
+- [Lockfiles aren't pure sunshine](#but-lockfiles-arent-pure-sunshine)
 - [Distributed libraries](#distributed-libraries)
-- [Lockfiles and Git](#)
+- [Lockfiles and Git](#lockfiles-and-git)
+- [Conclusion](#conclusion)
 
 ## Lexicon
 
@@ -107,6 +108,23 @@ react@^17.0.0:
 >
 > Yarn comes with a very handy [upgrade-interactive](https://classic.yarnpkg.com/lang/en/docs/cli/upgrade-interactive/) command that displays all outdated packages and lets you choose which one to upgrade. Check out the [npm-check](https://www.npmjs.com/package/npm-check) package for an npm equivalent.
 
+## But lockfiles aren't pure sunshine
+
+Why? Because they can cause duplication.
+
+Duplicates are defined by Yarn as _« descriptors with overlapping ranges being resolved and locked to different locators »_. They are a natural consequence of the package manager's deterministic installs, but they can sometimes pile up and unnecessarily increase the size of your project.
+
+This should not happen too frequently though, as package managers try to avoid duplication in the first place. Let's take two examples, one in which they succeed doing so (👍) and one in which they fail (👎).
+
+👍 **Example 1**. If `react@^17.0.0` (a dependency of a dependency) has already been resolved to `react@17.0.2`, running `yarn add react@*` (or `npm install react@*`) will cause the package manager to reuse `react@17.0.2`, even if the latest `react` is actually `react@17.0.3`, thus preventing unnecessary duplication.
+
+👎 **Example 2**. If `react@^17.0.0` (a dependency of a dependency) has already been resolved to `react@17.0.2`, running `yarn add react@17.0.3` will cause the package manager to install `react@17.0.3` because the existing resolution doesn't satisfy the range `17.0.2`. This behavior can lead to unwanted duplication, since now the lockfile contains two separate resolutions for the two `react` descriptors, even though they have overlapping ranges, which means that the lockfile can be simplified so that both descriptors resolve to `react@17.0.3`.
+
+How to take action? The `dedupe` command comes to our rescue. This command should be used with caution though, as it modifies the dependency tree, which can sometimes cause problems when packages don't strictly follow [semver recommendations](https://semver.org/spec/v2.0.0.html). Because of this, it is recommended to also review the changes manually.
+
+> ✨ Pro tip
+> Use the `--check` option of Yarn `v2+`'s `dedupe` command to check if the dependency tree contains any duplicate. Make this part of your CI workflow.
+
 ## Distributed libraries
 
 One important thing to mention is that package managers care for one single lockfile: the one that lie at the top level of your project. This means that if some dependency of yours is shipped with a lockfile of its own, the file will be completely ignored by Yarn or npm[^1].
@@ -127,6 +145,18 @@ No, there's nothing you can do to absolutely prevent such a thing to happen. But
 > ✨ Pro tip
 >
 > Tools like [Dependabot](https://github.com/dependabot/dependabot-core) and [Renovate](https://github.com/renovatebot/renovate) can help you automate dependency updates.
+
+## Lockfiles and Git
+
+Should lockfiles be committed to the repository? You'll find a lot of different answers to that question around the Web, but only one of them is right:
+
+**Yes, always.**
+
+Why? Because you want anyone (e.g. a colleague) or anything (e.g. a deployment server) accessing your git repository to use the same version of `react` that you use locally, that you tested your code against. This is critical to prevent errors, as new versions-even backward-compatible ones-may break your code.
+
+## Conclusion
+
+As a conclusion, we can say that lockfiles are an almost perfect solution to a complex problem. You have many dependencies, those dependencies have dependencies of their own, and each dependency can be resolved in a variety of different ways: the universe of potential combinations is vast. Lockfiles bring determinism to the party, which enables you to maintain sovereignty over your codebase. In order for you code to keep working as time goes, they lock everything, while kindly handing the control panel to you.
 
 [^1]: With the exception of npm's `npm-shrinkwrap.json` file (a.k.a the « publishable lockfile »). But its usage is [discouraged in most situations](https://docs.npmjs.com/cli/v7/configuring-npm/npm-shrinkwrap-json).
 [^2]: Check out [their workflows](https://github.com/yarnpkg/berry/tree/master/.github/workflows).
