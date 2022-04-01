@@ -14,8 +14,8 @@ A lockfile is a file that keeps track of the exact versions your package manager
 
 - [Lexicon](#lexicon)
 - [Introduction](#introduction)
-- [The problem](#)
-- [How does a lockfile work?](#)
+- [The problem](#the-problem)
+- [How does a lockfile work?](#how-does-a-lockfile-work)
 - [Why is it awesome?](#)
 - [Lockfiles aren't pure sunshine](#)
 - [Distributed libraries](#distributed-libraries)
@@ -55,6 +55,34 @@ Because you specify ranges and not exact versions for your dependencies, your `p
 > 🤔 Wait a second
 >
 > I know what you're thinking. Why not only specifying exact versions for your dependencies (e.g. `react@17.0.2`)? That way, there would be no surprise when running the `install` command twice. Well, although tempting, this reasoning is flawed because you're forgetting something: each of your dependencies has a `package.json` file of its own, in which it declares its dependencies, which your package manager is also responsible for resolving. So even if you only specify exact versions for _your_ dependencies, you can't control the way your dependencies declare _theirs_, which may still be through ranges. No, we need something else.
+
+## How does a lockfile work?
+
+A lockfile is a file that keeps track of the exact versions your package manager has resolved your dependencies to. Put differently, it's a snapshot of how your `package.json` file was resolved at a given time.
+
+Let's say your `package.json` file looks like that:
+
+```json
+{
+  // ...
+  "dependencies": {
+    "react": "^17.0.0"
+  }
+}
+```
+
+After running `yarn install` (or `npm install`) for the first time, here's what you might find in the generated `yarn.lock` (or `package-lock.json`) file:
+
+```
+# ...
+
+react@^17.0.0:
+  version "17.0.2"
+```
+
+Check out the first key/value pair. This basically means that the `react` dependency you specified as a range in your `package.json` file (`react@^17.0.0`) was resolved to the `17.0.2` _exact_ version of `react`.
+
+If you run an `install` command again, the package manager will notice that there's a lockfile lying there and skip the resolution step for already-resolved dependencies. Let's say that `react` releases version `17.0.3` in the middle of your two `install` commands, the package manager would still resolve `^17.0.0` to `17.0.2`, thanks to the lockfile.
 
 ## Distributed libraries
 
