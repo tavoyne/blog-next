@@ -10,19 +10,22 @@ export interface PostListProps {
 export default function PostList({ posts }: PostListProps) {
   return (
     <section>
-      <h1>Posts</h1>
-      <ul>
-        {posts.map(({ creationDate, id, title }) => {
+      <h2>Posts</h2>
+      <ul className="post-list">
+        {posts.map(({ creationDate, description, id, title }, index) => {
           return (
-            <li key={id}>
-              <Link href={`/posts/${id}`}>
-                <a>{title}</a>
-              </Link>
-              <br />
-              <small>
-                <Date dateString={creationDate} />
-              </small>
-            </li>
+            <>
+              <li key={id}>
+                <Link href={`/posts/${id}`}>
+                  <a>
+                    <Date dateString={creationDate} />
+                    <h3>{title}</h3>
+                    <p>{description}</p>
+                  </a>
+                </Link>
+              </li>
+              {index !== posts.length - 1 && <hr />}
+            </>
           );
         })}
       </ul>

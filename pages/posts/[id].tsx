@@ -46,6 +46,7 @@ export default function Post({
         </div>
         <div dangerouslySetInnerHTML={{ __html: post.html }} />
       </article>
+      <hr />
       <a
         href={`https://github.com/tavoyne/blog-next/blob/master/posts/${post.id}.md`}
       >

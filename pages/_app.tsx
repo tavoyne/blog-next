@@ -15,7 +15,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <header>
         <nav className="stack">
           <Link href="/">
-            <a>Home</a>
+            <a>About</a>
           </Link>
           <Link href="/posts">
             <a>Posts</a>

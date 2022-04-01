@@ -29,8 +29,8 @@ export default function Home({
         width={128}
         alt="Théophile Avoyne"
       />
-      <h1>About</h1>
       <section>
+        <h1>About</h1>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. In
           condimentum lobortis magna. Vivamus fermentum fermentum turpis nec
