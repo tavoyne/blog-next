@@ -41,9 +41,9 @@ export default function Post({
       </Head>
       <article>
         <h1>{post.title}</h1>
-        <div>
+        <p>
           <Date dateString={post.creationDate} />
-        </div>
+        </p>
         <div dangerouslySetInnerHTML={{ __html: post.html }} />
       </article>
       <hr />
