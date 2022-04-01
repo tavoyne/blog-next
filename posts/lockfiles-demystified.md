@@ -63,7 +63,7 @@ A lockfile is a file that keeps track of the exact versions your package manager
 
 Let's say your `package.json` file looks like that:
 
-```json
+```jsonc
 {
   // ...
   "dependencies": {
