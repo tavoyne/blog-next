@@ -16,6 +16,11 @@ body {
   padding: 2rem;
 }
 
+code {
+  background-color: #dedede;
+  padding: 0.1875rem 0.25rem;
+}
+
 header {
   align-items: center;
   display: flex;
