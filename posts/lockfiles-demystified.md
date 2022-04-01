@@ -1,10 +1,10 @@
 ---
 creationDate: "2022-04-01"
-description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porttitor pretium varius. Integer in pellentesque massa."
+description: "This topic may sound a bit off-trend to the fancy NTF/Web3/Metaverse people out there, but I found out that it's worth sometimes going back to basics and explaining stuff *everybody* understands."
 title: "Lockfiles demystified"
 ---
 
-This topic may sound a bit off-trend to the fancy NTF/Web3/Metaverse people out there, but I found out that it's worth sometimes going back to basics and explaining stuff everybody understands.
+This topic may sound a bit off-trend to the fancy NTF/Web3/Metaverse people out there, but I found out that it's worth sometimes going back to basics and explaining stuff _everybody_ understands.
 
 ## TL;DR
 
@@ -13,7 +13,7 @@ A lockfile is a file that keeps track of the exact versions your package manager
 ## Table of content
 
 - [Lexicon](#lexicon)
-- [Introduction](#)
+- [Introduction](#introduction)
 - [The problem](#)
 - [How does a lockfile work?](#)
 - [Why is it awesome?](#)
@@ -28,6 +28,18 @@ A lockfile is a file that keeps track of the exact versions your package manager
 - **Transitive dependency**: a package that ends up in your dependency tree because one of your dependencies depends on it. For example, react depends on `loose-envify`, so if you install `react`, `loose-envify` will end up in your `node_modules` folder as well.
 - **Dependency tree**: the logical representation of all the dependencies your package depends on (both regular and transitive): the root is composed of the ones listed in your `package.json` file and each further layer represents one additional degree of transitivity.
 
+## Introduction
+
+There are a number of ways you can describe a dependency in a `package.json` file, each with its own meaning:
+
+- `^17.0.0` means _« Give me any version that's compatible with `17.0.0`. »_. That's the default range and the most useful one.
+- `>17.0.0` means _« Give me any version that's above `17.0.0`, no matter if it's compatible with `17.0.0` or not. »_. That's dangerous, you better know what you're doing.
+- `17.0.0` means _« Give me exactly `17.0.0` »_. You shouldn't use this one often and instead be the loosest you can be in order to optimise dependency sharing.
+
+… and so on ([full list](https://classic.yarnpkg.com/en/docs/dependency-versions/)).
+
+One of the main features of package managers like Yarn or npm is to resolve your dependencies, i.e. to convert each _descriptor_ (e.g. `react@^17.0.0`) into a _locator_ (or an exact version, e.g. `react@17.0.2`). Each package manager has its own way of doing this, but what they all do is that they look for the highest version that satisfies your requirement.
+
 ## Distributed libraries
 
 One important thing to mention is that package managers care for one single lockfile: the one that lie at the top level of your project. This means that if some dependency of yours is shipped with a lockfile of its own, the file will be completely ignored by Yarn or npm[^1].
@@ -40,8 +52,8 @@ If you had unlimited computational power at your disposal, this problem would be
 
 No, there's nothing you can do to absolutely prevent such a thing to happen. But thankfully, there are a lot of ways to reduce the risk it does. Here are a few ones:
 
-- Limit the number of packages your library depends on. react, for instance, only has one dependency: loose-envify.
-- Run tests on selected dependency releases only. That's what Yarn do with its own packages².
+- Limit the number of packages your library depends on. `react`, for instance, only has one dependency: `loose-envify`.
+- Run tests on selected dependency releases only. That's what Yarn do with its own packages[^2].
 - Pick only well-maintained packages. If they have solid test suites, they'll be less likely to introduce a bug in a release.
 - (Discouraged) Use stricter ranges or exact versions for describing your dependencies. Beware that the more you do that, the less able will the package manager be to optimise the tree.
 
@@ -50,3 +62,4 @@ No, there's nothing you can do to absolutely prevent such a thing to happen. But
 > Tools like [Dependabot](https://github.com/dependabot/dependabot-core) and [Renovate](https://github.com/renovatebot/renovate) can help you automate dependency updates.
 
 [^1]: With the exception of npm's `npm-shrinkwrap.json` file (a.k.a the « publishable lockfile »). But its usage is [discouraged in most situations](https://docs.npmjs.com/cli/v7/configuring-npm/npm-shrinkwrap-json).
+[^2]: Check out [their workflows](https://github.com/yarnpkg/berry/tree/master/.github/workflows).
