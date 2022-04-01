@@ -40,6 +40,22 @@ There are a number of ways you can describe a dependency in a `package.json` fil
 
 One of the main features of package managers like Yarn or npm is to resolve your dependencies, i.e. to convert each _descriptor_ (e.g. `react@^17.0.0`) into a _locator_ (or an exact version, e.g. `react@17.0.2`). Each package manager has its own way of doing this, but what they all do is that they look for the highest version that satisfies your requirement.
 
+## The problem
+
+Let's say for a second that we live in a place where lockfiles don't exist. Here, the `package.json` file is the only authority your package manager takes his orders from. Sounds exciting? Well, it shouldn't, and you'll see why.
+
+In this `package.json` file, you specify that `react@^17.0.0` is a dependency. At the time you run the `install` command for the first time, the latest version of `react` is, say, `17.0.2`. The package manager will thus resolve `react@^17.0.0` to `react@17.0.2`, because, remember, it's looking for the highest version that satisfies your requirement.
+
+A few weeks later, somebody joins your team. He loads the source code on his machine and runs the `install` command. But, time has passed, and the latest version of `react` is now `17.0.3`. This still satisfies the `^17.0.0` range, so the package manager will this time resolve `react@^17.0.0` to `react@17.0.3`. See the problem? You and your colleague now have different versions of `react` in your respective `node_modules` folders. And, one day, you'll probably end up saying something like:
+
+> _« Bruh, why is this working on your machine and not mine?! No, no, this time it's too much, I quit coding. »_
+
+Because you specify ranges and not exact versions for your dependencies, your `package.json` file can actually be resolved in a variety of different ways, depending on what the latest releases of those packages are. This is not a good thing, as it makes the results of the `install` command not predictable. Running it twice with the same `package.json` file could produce two different `node_modules` folders.
+
+> 🤔 Wait a second
+>
+> I know what you're thinking. Why not only specifying exact versions for your dependencies (e.g. `react@17.0.2`)? That way, there would be no surprise when running the `install` command twice. Well, although tempting, this reasoning is flawed because you're forgetting something: each of your dependencies has a `package.json` file of its own, in which it declares its dependencies, which your package manager is also responsible for resolving. So even if you only specify exact versions for _your_ dependencies, you can't control the way your dependencies declare _theirs_, which may still be through ranges. No, we need something else.
+
 ## Distributed libraries
 
 One important thing to mention is that package managers care for one single lockfile: the one that lie at the top level of your project. This means that if some dependency of yours is shipped with a lockfile of its own, the file will be completely ignored by Yarn or npm[^1].
