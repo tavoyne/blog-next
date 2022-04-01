@@ -22,10 +22,10 @@ function MyApp({ Component, pageProps }: AppProps) {
           </Link>
         </nav>
         <div className="stack">
-          <a href="https://twitter.com/tavoyne">
+          <a aria-label="Twitter" href="https://twitter.com/tavoyne">
             <TwitterIcon />
           </a>
-          <a href="mailto:me@tavoyne.com">
+          <a aria-label="Email" href="mailto:me@tavoyne.com">
             <EnvelopeIcon />
           </a>
         </div>

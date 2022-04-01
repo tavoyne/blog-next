@@ -18,6 +18,11 @@ export default function Posts({
   return (
     <>
       <Head>
+        <meta
+          content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Incondimentum lobortis magna. Vivamus fermentum fermentum turpis nec posuere."
+          key="description"
+          name="description"
+        />
         <title key="title">Posts • Théophile Avoyne</title>
       </Head>
       <PostList posts={posts} />

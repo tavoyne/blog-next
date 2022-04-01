@@ -21,6 +21,11 @@ export default function Home({
     <>
       <Head>
         <title key="title">Théophile Avoyne • Software engineer</title>
+        <meta
+          content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Incondimentum lobortis magna. Vivamus fermentum fermentum turpis nec posuere."
+          key="description"
+          name="description"
+        />
       </Head>
       <Image
         priority

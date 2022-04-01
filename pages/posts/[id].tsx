@@ -37,6 +37,7 @@ export default function Post({
   return (
     <>
       <Head>
+        <meta content={post.description} key="description" name="description" />
         <title key="title">{post.title}</title>
       </Head>
       <article>

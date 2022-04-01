@@ -14,18 +14,16 @@ export default function PostList({ posts }: PostListProps) {
       <ul className="post-list">
         {posts.map(({ creationDate, description, id, title }, index) => {
           return (
-            <>
-              <li key={id}>
-                <Link href={`/posts/${id}`}>
-                  <a>
-                    <Date dateString={creationDate} />
-                    <h3>{title}</h3>
-                    <p>{description}</p>
-                  </a>
-                </Link>
-              </li>
+            <li key={id}>
+              <Link href={`/posts/${id}`}>
+                <a>
+                  <Date dateString={creationDate} />
+                  <h3>{title}</h3>
+                  <p>{description}</p>
+                </a>
+              </Link>
               {index !== posts.length - 1 && <hr />}
-            </>
+            </li>
           );
         })}
       </ul>
