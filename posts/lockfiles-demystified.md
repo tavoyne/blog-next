@@ -47,6 +47,6 @@ No, there's nothing you can do to absolutely prevent such a thing to happen. But
 
 > ✨ Pro tip
 >
-> Tools like Dependabot and Renovate can help you automate dependency updates.
+> Tools like [Dependabot](https://github.com/dependabot/dependabot-core) and [Renovate](https://github.com/renovatebot/renovate) can help you automate dependency updates.
 
 [^1]: With the exception of npm's `npm-shrinkwrap.json` file (a.k.a the « publishable lockfile »). But its usage is [discouraged in most situations](https://docs.npmjs.com/cli/v7/configuring-npm/npm-shrinkwrap-json).
