@@ -24,9 +24,9 @@ A lockfile is a file that keeps track of the exact versions your package manager
 
 ## Lexicon
 
-- **Package**: a bundle of source code, usually characterised by a `package.json` file at its root.
-- **Dependency**: a package your package depends on. You certainly added it using the `yarn add` or `npm install` command. It's listed in your `package.json` file under the `dependencies`, `devDependencies` or `peerDependencies` key (don't know the difference? [read this](https://classic.yarnpkg.com/en/docs/dependency-types)).
-- **Transitive dependency**: a package that ends up in your dependency tree because one of your dependencies depends on it. For example, react depends on `loose-envify`, so if you install `react`, `loose-envify` will end up in your `node_modules` folder as well.
+- **Package**: a bundle of source code, usually characterised by a `package.json` file at its root. A package that is intended to be used in other packages can also be referred as a _library_.
+- **Dependency**: a package (or _library_) your package depends on. You certainly added it using the `yarn add` or `npm install` command. It's listed in your `package.json` file under the `dependencies`, `devDependencies` or `peerDependencies` key (don't know the difference? [read this](https://classic.yarnpkg.com/en/docs/dependency-types)).
+- **Transitive dependency**: a package that ends up in your dependency tree because one of your dependencies depends on it. For example, `react` depends on `loose-envify`, so if you install `react`, `loose-envify` will end up in your `node_modules` folder as well.
 - **Dependency tree**: the logical representation of all the dependencies your package depends on (both regular and transitive): the root is composed of the ones listed in your `package.json` file and each further layer represents one additional degree of transitivity.
 
 ## Introduction
@@ -91,11 +91,11 @@ Now you might be thinking:
 
 > _« Ok so I'm stuck forever with version `17.0.2`. What's the point? What if I actually wanted `react` to be upgraded to `17.0.3`? »_
 
-Well, it's true that the `react` version is kind of _locked_ here. But it's not true that you're stuck with it. Actually, you can decide to upgrade at any time. And that's the key takeaway. Thanks to the lockfile, the package manager can give full power to you. If you don't do anything, nothing should change. In other words, two subsequent `install` commands should always produce the same results. This is called determinism: it's when no randomness is involved in the process.
+Well, it's true that the `react` version is kind of _locked_ here. But it's not true that you're stuck with it. Actually, you can decide to upgrade at any time. And that's the key takeaway. Thanks to the lockfile, the package manager can give full power to _you_. If you don't do anything, nothing should change. In other words, two subsequent `install` commands should always produce the same results. This is called determinism: it's when no randomness is involved in the process.
 
 So, whether or not to upgrade to `17.0.3` is _your_ decision. And you express it using a simple command: `upgrade`.
 
-**Taking back our last example**. Should you run `yarn upgrade react` (or `npm upgrade react`) after version `17.0.3` of `react` was released, your `yarn.lock` (or `package-lock.json`) file would be updated that way:
+**Taking back our last example.** Should you run `yarn upgrade react` (or `npm upgrade react`) after version `17.0.3` of `react` was released, your `yarn.lock` (or `package-lock.json`) file would be updated that way:
 
 ```
 # ...
@@ -112,13 +112,13 @@ react@^17.0.0:
 
 Why? Because they can cause duplication.
 
-Duplicates are defined by Yarn as _« descriptors with overlapping ranges being resolved and locked to different locators »_. They are a natural consequence of the package manager's deterministic installs, but they can sometimes pile up and unnecessarily increase the size of your project.
+Duplicates are defined by Yarn as _« descriptors with overlapping ranges being resolved and locked to different locators »_[^1]. They are a natural consequence of the package manager's deterministic installs, but they can sometimes pile up and unnecessarily increase the size of your project.
 
-This should not happen too frequently though, as package managers try to avoid duplication in the first place. Let's take two examples, one in which they succeed doing so (👍) and one in which they fail (👎).
+This should not happen too frequently though, as package managers try to avoid duplication in the first place. Let's take two examples, one in which Yarn succeeds doing so and one in which it fails.
 
-👍 **Example 1**. If `react@^17.0.0` (a dependency of a dependency) has already been resolved to `react@17.0.2`, running `yarn add react@*` (or `npm install react@*`) will cause the package manager to reuse `react@17.0.2`, even if the latest `react` is actually `react@17.0.3`, thus preventing unnecessary duplication.
+**Success example.** If `react@^17.0.0` (a dependency of a dependency) has already been resolved to `react@17.0.2`, running `yarn add react@*` will cause Yarn to reuse `react@17.0.2`, even if the latest version of `react` is actually `react@17.0.3`, thus preventing unnecessary duplication.
 
-👎 **Example 2**. If `react@^17.0.0` (a dependency of a dependency) has already been resolved to `react@17.0.2`, running `yarn add react@17.0.3` will cause the package manager to install `react@17.0.3` because the existing resolution doesn't satisfy the range `17.0.2`. This behaviour can lead to unwanted duplication, since now the lockfile contains two separate resolutions for the two `react` descriptors, even though they have overlapping ranges, which means that the lockfile can be simplified so that both descriptors resolve to `react@17.0.3`.
+**Failure example.** If `react@^17.0.0` (a dependency of a dependency) has already been resolved to `react@17.0.2`, running `yarn add react@17.0.3` will cause Yarn to install `react@17.0.3` because the existing resolution doesn't satisfy the range `17.0.2`. This behaviour can lead to unwanted duplication, since now the lockfile contains two separate resolutions for the two `react` descriptors, even though they have overlapping ranges, which means that the lockfile can be simplified so that both descriptors resolve to `react@17.0.3`.
 
 How to take action? The `dedupe` command comes to our rescue. This command should be used with caution though, as it modifies the dependency tree, which can sometimes cause problems when packages don't strictly follow [semver recommendations](https://semver.org/spec/v2.0.0.html). Because of this, it is recommended to also review the changes manually.
 
@@ -128,7 +128,7 @@ How to take action? The `dedupe` command comes to our rescue. This command shoul
 
 ## Distributed libraries
 
-One important thing to mention is that package managers care for one single lockfile: the one that lie at the top level of your project. This means that if some dependency of yours is shipped with a lockfile of its own, the file will be completely ignored by Yarn or npm[^1].
+One important thing to mention is that package managers care for one single lockfile: the one that lie at the top level of your project. This means that if some dependency of yours is shipped with a lockfile of its own, the file will be completely ignored by Yarn or npm[^2].
 
 Put differently, if you are building a library with the purpose of distributing it (e.g. through npm), there's no way you can tell the end user's package manager how to resolve your dependencies. It will go through the `package.json` file your package provides and follow the standard strategy (i.e. highest possible version, no duplicate). Consequently, there's a chance that two people installing your library end up with two different dependency tree, depending on latest releases and dependency sharing. If you've been following along, that's not something we should be so happy about but, this time, there's no direct solution.
 
@@ -139,7 +139,7 @@ If you had unlimited computational power at your disposal, this problem would be
 No, there's nothing you can do to absolutely prevent such a thing to happen. But thankfully, there are a lot of ways to reduce the risk it does. Here are a few ones:
 
 - Limit the number of packages your library depends on. `react`, for instance, only has one dependency: `loose-envify`.
-- Run tests on selected dependency releases only. That's what Yarn do with its own packages[^2].
+- Run tests on selected dependency releases only. That's what Yarn do with its own packages[^3].
 - Pick only well-maintained packages. If they have solid test suites, they'll be less likely to introduce a bug in a release.
 - (Discouraged) Use stricter ranges or exact versions for describing your dependencies. Beware that the more you do that, the less able will the package manager be to optimise the tree.
 
@@ -159,5 +159,6 @@ Why? Because you want anyone (e.g. a colleague) or anything (e.g. a deployment s
 
 As a conclusion, we can say that lockfiles are an almost perfect solution to a complex problem. You have many dependencies, those dependencies have dependencies of their own, and each dependency can be resolved in a variety of different ways: the universe of potential combinations is vast. Lockfiles bring determinism to the party, which enables you to maintain sovereignty over your codebase. In order for you code to keep working as time goes, they lock everything, while kindly handing the control panel to you.
 
-[^1]: With the exception of npm's `npm-shrinkwrap.json` file (a.k.a the « publishable lockfile »). But its usage is [discouraged in most situations](https://docs.npmjs.com/cli/v7/configuring-npm/npm-shrinkwrap-json).
-[^2]: Check out [their workflows](https://github.com/yarnpkg/berry/tree/master/.github/workflows).
+[^1]: [https://yarnpkg.com/cli/dedupe](https://yarnpkg.com/cli/dedupe)
+[^2]: With the exception of npm's `npm-shrinkwrap.json` file (a.k.a the « publishable lockfile »). But its usage is [discouraged in most situations](https://docs.npmjs.com/cli/v7/configuring-npm/npm-shrinkwrap-json).
+[^3]: Check out [their workflows](https://github.com/yarnpkg/berry/tree/master/.github/workflows).
