@@ -118,11 +118,12 @@ This should not happen too frequently though, as package managers try to avoid d
 
 👍 **Example 1**. If `react@^17.0.0` (a dependency of a dependency) has already been resolved to `react@17.0.2`, running `yarn add react@*` (or `npm install react@*`) will cause the package manager to reuse `react@17.0.2`, even if the latest `react` is actually `react@17.0.3`, thus preventing unnecessary duplication.
 
-👎 **Example 2**. If `react@^17.0.0` (a dependency of a dependency) has already been resolved to `react@17.0.2`, running `yarn add react@17.0.3` will cause the package manager to install `react@17.0.3` because the existing resolution doesn't satisfy the range `17.0.2`. This behavior can lead to unwanted duplication, since now the lockfile contains two separate resolutions for the two `react` descriptors, even though they have overlapping ranges, which means that the lockfile can be simplified so that both descriptors resolve to `react@17.0.3`.
+👎 **Example 2**. If `react@^17.0.0` (a dependency of a dependency) has already been resolved to `react@17.0.2`, running `yarn add react@17.0.3` will cause the package manager to install `react@17.0.3` because the existing resolution doesn't satisfy the range `17.0.2`. This behaviour can lead to unwanted duplication, since now the lockfile contains two separate resolutions for the two `react` descriptors, even though they have overlapping ranges, which means that the lockfile can be simplified so that both descriptors resolve to `react@17.0.3`.
 
 How to take action? The `dedupe` command comes to our rescue. This command should be used with caution though, as it modifies the dependency tree, which can sometimes cause problems when packages don't strictly follow [semver recommendations](https://semver.org/spec/v2.0.0.html). Because of this, it is recommended to also review the changes manually.
 
 > ✨ Pro tip
+>
 > Use the `--check` option of Yarn `v2+`'s `dedupe` command to check if the dependency tree contains any duplicate. Make this part of your CI workflow.
 
 ## Distributed libraries

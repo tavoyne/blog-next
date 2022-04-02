@@ -1,4 +1,8 @@
 {
+  "cSpell.enabledLanguageIds": ["markdown"],
+  "cSpell.ignoreWords": ["envify"],
+  "cSpell.language": "en-GB",
+  "cSpell.words": ["arent", "bruh", "lockfiles"],
   "editor.codeActionsOnSave": { "source.fixAll.eslint": true },
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
