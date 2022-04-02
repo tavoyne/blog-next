@@ -4,7 +4,7 @@ description: "This topic may sound a bit off-trend to the fancy NTF/Web3/Metaver
 title: "Lockfiles demystified"
 ---
 
-This topic may sound a bit off-trend to the fancy NTF/Web3/Metaverse people out there, but I found out that it's worth sometimes going back to basics and explaining stuff _everybody_ understands.
+This topic may sound a bit off-trend to the fancy NTF/Web3/Metaverse people out there, but I found out that it's worth sometimes going back to basics and explaining stuff \*everybody\* understands.
 
 ## TL;DR
 
