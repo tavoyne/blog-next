@@ -6,9 +6,4 @@ title: "Next.js vs. Remix"
 
 <!--- spell-checker: disable --->
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. In condimentum lobortis magna. Vivamus fermentum fermentum turpis nec posuere. Duis felis purus, lacinia ac tristique eget.
-
-Pulvinar ut nisl. Nunc id molestie magna. Integer vel nunc vulputate, ultricies magna nec, sollicitudin justo. Cras semper at neque id
-mollis. Ut sagittis euismod quam vel porttitor. Cras vel enim purus.
-
-Aenean tellus ligula.Lacinia quis volutpat eget, elementum porttitor tellus. Nam quis odioligula. Duis consectetur lacus eu nunc porta porttitor. Nullam estlorem, imperdiet eu erat ut, dignissim hendrerit magna. Aliquam eratvolutpat.
+This post is being written. Come back in few days!
