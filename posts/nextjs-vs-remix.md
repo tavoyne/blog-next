@@ -4,6 +4,4 @@ description: "I had a hard time deciding if I should go with Next.js or Remix fo
 title: "Next.js vs. Remix"
 ---
 
-<!--- spell-checker: disable --->
-
 This post is being written. Come back in few days!
