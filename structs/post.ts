@@ -7,6 +7,7 @@ import { Infer, assign, object, string } from "superstruct";
 export const PostAttributes = object({
   creationDate: string(),
   description: string(),
+  metaDescription: string(),
   title: string(),
 });
 

@@ -1,6 +1,7 @@
 ---
 creationDate: "2022-04-01"
 description: "This topic may sound a bit off-trend to the fancy NTF/Web3/Metaverse people out there, but I found out that it's worth sometimes going back to basics and explaining stuff *everybody* understands."
+metaDescription: "This is an attempt to explain why lockfiles (e.g. yarn.lock, package-lock.json) were invented, what their limits are and how they should be manipulated on a day-to-day basis."
 title: "Lockfiles demystified"
 ---
 
