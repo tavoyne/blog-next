@@ -38,7 +38,7 @@ There are a number of ways you can describe a dependency in a `package.json` fil
 - `17.0.0` means _« Give me exactly `17.0.0` »_. You shouldn't use this one often and instead be the loosest you can be in order to optimise dependency sharing.
 - … and so on ([full list](https://classic.yarnpkg.com/en/docs/dependency-versions/)).
 
-One of the main features of package managers like Yarn or npm is to resolve your dependencies, i.e. to convert each _descriptor_ (or set of packages, e.g. `react@^17.0.0`) into a _locator_ (or unique package, e.g. `react@17.0.2`). Each package manager has its own way of doing this, but what they all do is that they look for the highest version that satisfies your requirement.
+One of the main features of package managers like Yarn or npm is to resolve your dependencies, i.e. to convert each _descriptor_ (or set of packages, e.g. `react@^17.0.0`) you provide into a _locator_ (or unique package, e.g. `react@17.0.2`). Each package manager has its own way of doing this, but what they all do is that they look for the highest version that satisfies your requirement.
 
 ## The problem
 
