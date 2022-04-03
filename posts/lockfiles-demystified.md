@@ -24,22 +24,21 @@ A lockfile is a file that keeps track of the exact versions your package manager
 
 ## Lexicon
 
-- **Package**: a bundle of source code, usually characterised by a `package.json` file at its root. A package that is intended to be used in other packages can also be referred as a _library_.
-- **Dependency**: a package (or _library_) your package depends on. You certainly added it using the `yarn add` or `npm install` command. It's listed in your `package.json` file under the `dependencies`, `devDependencies` or `peerDependencies` key (don't know the difference? [read this](https://classic.yarnpkg.com/en/docs/dependency-types)).
-- **Transitive dependency**: a package that ends up in your dependency tree because one of your dependencies depends on it. For example, `react` depends on `loose-envify`, so if you install `react`, `loose-envify` will end up in your `node_modules` folder as well.
-- **Dependency tree**: the logical representation of all the dependencies your package depends on (both regular and transitive): the root is composed of the ones listed in your `package.json` file and each further layer represents one additional degree of transitivity.
+- **Package**: a bundle of source code, usually characterised by a `package.json` file at its root. A package that is intended to be used in other packages can also be referred to as a _library_.
+- **Dependency**: a package your package depends on. You certainly added it using the `yarn add` or `npm install` command. It's listed in your `package.json` file under the `dependencies`, `devDependencies` or `peerDependencies` key (don't know the difference? [read this](https://classic.yarnpkg.com/en/docs/dependency-types)).
+- **Transitive dependency**: a package that ends up in your dependency tree because one of your dependencies depends on it. For example, `react` depends on `loose-envify`, so if you install `react`, `loose-envify` will end up in your `node_modules` folder along with it.
+- **Dependency tree**: the logical representation of all the packages your package depends on (both regular and transitive): the root is composed of the ones listed in your `package.json` file and each further layer represents one additional degree of transitivity.
 
 ## Introduction
 
 There are a number of ways you can describe a dependency in a `package.json` file, each with its own meaning:
 
 - `^17.0.0` means _« Give me any version that's compatible with `17.0.0`. »_. That's the default range and the most useful one.
-- `>17.0.0` means _« Give me any version that's above `17.0.0`, no matter if it's compatible with `17.0.0` or not. »_. That's dangerous, you better know what you're doing.
+- `>17.0.0` means _« Give me any version that's above `17.0.0`, no matter if it's compatible with `17.0.0` or not. »_. That's dangerous as it might introduce breaking changes.
 - `17.0.0` means _« Give me exactly `17.0.0` »_. You shouldn't use this one often and instead be the loosest you can be in order to optimise dependency sharing.
+- … and so on ([full list](https://classic.yarnpkg.com/en/docs/dependency-versions/)).
 
-… and so on ([full list](https://classic.yarnpkg.com/en/docs/dependency-versions/)).
-
-One of the main features of package managers like Yarn or npm is to resolve your dependencies, i.e. to convert each _descriptor_ (e.g. `react@^17.0.0`) into a _locator_ (or an exact version, e.g. `react@17.0.2`). Each package manager has its own way of doing this, but what they all do is that they look for the highest version that satisfies your requirement.
+One of the main features of package managers like Yarn or npm is to resolve your dependencies, i.e. to convert each _descriptor_ (or set of packages, e.g. `react@^17.0.0`) into a _locator_ (or unique package, e.g. `react@17.0.2`). Each package manager has its own way of doing this, but what they all do is that they look for the highest version that satisfies your requirement.
 
 ## The problem
 
