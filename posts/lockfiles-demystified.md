@@ -7,7 +7,7 @@ title: "Lockfiles demystified"
 
 This topic may sound a bit off-trend to the fancy NTF/Web3/Metaverse people out there, but I found out that it's worth sometimes going back to basics and explaining stuff \*everybody\* understands.
 
-This is an attempt to explain why lockfiles (e.g. `yarn.lock`, `package-lock.json`) were invented, what their limits are and how they should be manipulated on a day-to-day basis.
+This is an attempt to explain why lockfiles (e.g. `yarn.lock`, `package-lock.json`) were invented, what their limits are and how they should be manipulated on a day-to-day basis. There's no prior knowledge required. You'll find some external links along the way if you want to push your understanding a bit deeper.
 
 ## TL;DR
 
