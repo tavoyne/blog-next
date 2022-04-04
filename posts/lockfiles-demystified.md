@@ -96,9 +96,9 @@ If you run the `install` command again, the package manager will notice that the
 
 Now you might be thinking:
 
-> _« Ok so I'm stuck forever with version `17.0.2`. What's the point? What if I actually wanted `react` to be upgraded to `17.0.3`? »_
+> _« Ok, so I'm stuck forever with version `17.0.2`. What's the point? What if I actually wanted `react` to be upgraded to `17.0.3`? »_
 
-Well, it's true that the `react` version is kind of _locked_ here. But it's not true that you're stuck with it. Actually, you can decide to upgrade at any time. And that's the key takeaway. Thanks to the lockfile, the package manager can give full power to _you_. If you don't do anything, nothing should change. In other words, two subsequent `install` commands should always produce the same results. This is called determinism: it's when no randomness is involved in the process.
+Well, it's true that the `react` version is kind of _locked_ here. But it's not true that you're stuck with it. Actually, you can decide to upgrade at any time. And that's the key takeaway. Thanks to the lockfile, the package manager can give full power to _you_. If you don't do anything, your `node_modules` folder should not be modified. In other words, two subsequent `install` commands should always produce the same results. This is called determinism: it's when no randomness is involved in the process.
 
 So, whether or not to upgrade to `17.0.3` is _your_ decision. And you express it using a simple command: `upgrade`.
 
@@ -109,6 +109,11 @@ So, whether or not to upgrade to `17.0.3` is _your_ decision. And you express it
 
 react@^17.0.0:
   version "17.0.3"
+  resolved "https://registry.yarnpkg.com/react/-/react-17.0.3.tgz#d0b5cc516d30eb3eee383f75b62864cfb6800037"
+  integrity sha512-dgbPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA==
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
 ```
 
 > ✨ Pro tip
