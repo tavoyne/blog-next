@@ -77,7 +77,7 @@ Let's say that your `package.json` file looks like that:
 After running `yarn install` (or `npm install`) for the first time, here's what you might find in the generated `yarn.lock` (or `package-lock.json`) file:
 
 ```txt
-...
+# ...
 
 react@^17.0.0:
   version "17.0.2"
