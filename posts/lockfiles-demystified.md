@@ -63,7 +63,7 @@ Because you specify ranges and not exact versions for your dependencies, your `p
 
 A lockfile is a file that keeps track of the exact versions your package manager has resolved your dependencies to. Put differently, it's a snapshot of how your `package.json` file was resolved at a given time.
 
-Let's say your `package.json` file looks like that:
+Let's say that your `package.json` file looks like that:
 
 ```jsonc
 {
@@ -76,16 +76,21 @@ Let's say your `package.json` file looks like that:
 
 After running `yarn install` (or `npm install`) for the first time, here's what you might find in the generated `yarn.lock` (or `package-lock.json`) file:
 
-```
-# ...
+```txt
+...
 
 react@^17.0.0:
   version "17.0.2"
+  resolved "https://registry.yarnpkg.com/react/-/react-17.0.2.tgz#d0b5cc516d29eb3eee383f75b62864cfb6800037"
+  integrity sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA==
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
 ```
 
-Check out the first key/value pair. This basically means that the `react` dependency you specified as a range in your `package.json` file (`react@^17.0.0`) was resolved to the `17.0.2` _exact_ version of `react`.
+Check out the first key/value pair. This basically means that the `react` dependency you specified as a range in your `package.json` file (`"react": "^17.0.0"`) was resolved to the `17.0.2` _exact_ version of `react`.
 
-If you run an `install` command again, the package manager will notice that there's a lockfile lying there and skip the resolution step for already-resolved dependencies. Let's say that `react` releases version `17.0.3` in the middle of your two `install` commands, the package manager would still resolve `^17.0.0` to `17.0.2`, thanks to the lockfile.
+If you run the `install` command again, the package manager will notice that there's a lockfile lying there and skip the resolution step for already-resolved dependencies. Let's say that `react` releases version `17.0.3` in the middle of your two `install` commands, the package manager would still resolve `^17.0.0` to `17.0.2`, thanks to the lockfile.
 
 ## Why is it awesome?
 
