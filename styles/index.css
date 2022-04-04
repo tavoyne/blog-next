@@ -1,26 +1,45 @@
+/* -----------------------------------------------------------------------------
+ * Variables
+ * ---------------------------------------------------------------------------*/
+
+:root {
+  --dark-gray: #313131;
+  --intermediary-gray: #747474;
+  --light-gray: #dedede;
+  --off-black: #1f1f1f;
+  --off-white: #f5f5f5;
+}
+
+/* -----------------------------------------------------------------------------
+ * Elements
+ * ---------------------------------------------------------------------------*/
+
+*:not(pre) > code {
+  background-color: var(--light-gray);
+  padding: 0.1875rem 0.25rem;
+}
+
 a {
   color: unset;
 }
 
-a > svg {
-  height: 1.5rem;
-  width: 1.5rem;
+blockquote {
+  background: var(--off-white);
+  border-left-color: var(--off-black);
+  border-left-style: solid;
+  border-left-width: 0.25rem;
+  display: inline-block;
+  margin: 0.75rem 0;
+  padding: 0 2.5rem;
 }
 
 body {
-  color: #1f1f1f;
+  color: var(--off-black);
   font-family: "Inter", sans-serif;
-  line-height: 1.5rem;
+  line-height: 1.5;
   margin: 0 auto;
   max-width: 42rem;
   padding: 2rem;
-}
-
-blockquote code,
-li code,
-p code {
-  background-color: #dedede;
-  padding: 0.1875rem 0.25rem;
 }
 
 header {
@@ -30,15 +49,22 @@ header {
   margin-bottom: 2rem;
 }
 
+header svg {
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
 hr {
-  margin: 1.245rem 0;
-  border-color: #c0c0c0;
+  border-color: var(--light-gray);
   border-style: solid;
   border-width: 0.03125rem;
+  margin: 1.245rem 0;
 }
 
 pre {
-  background: #313131;
+  background: var(--dark-gray);
+  overflow: scroll;
+  margin: 0.75rem 0;
   padding: 1rem;
   color: white;
 }
@@ -48,22 +74,30 @@ svg {
   fill: currentColor;
 }
 
+/* -----------------------------------------------------------------------------
+ * Classes
+ * ---------------------------------------------------------------------------*/
+
+.gray {
+  color: var(--intermediary-gray);
+}
+
 .post-list {
   list-style: none;
   padding-left: 0;
 }
 
-.post-list > li > a {
+.post-list a {
   text-decoration: none;
 }
 
-.post-list > li > a > h3,
-p {
+.post-list h2,
+h3 {
   margin: 0.5rem 0;
 }
 
-.gray {
-  color: #747474;
+.post-list p {
+  margin-top: 0;
 }
 
 .stack {
