@@ -7,7 +7,7 @@ title: "Lockfiles demystified"
 
 This topic may sound a bit off-trend to the fancy NTF/Web3/Metaverse people out there, but I found out that it's worth sometimes going back to basics and explaining stuff \*everybody\* understands.
 
-This is an attempt to explain why lockfiles (e.g. `yarn.lock`, `package-lock.json`) were invented, what their limits are and how they should be manipulated on a day-to-day basis. There's no prior knowledge required. You'll find some external links along the way if you want to push your understanding a bit deeper.
+This is an attempt to explain why lockfiles (e.g. `yarn.lock`, `package-lock.json`) were invented, what their limits are and how they should be manipulated on a day-to-day basis. A very basic knowledge of package managers is expected. You'll find some external links along the way if you want to push your understanding a bit deeper.
 
 ## TL;DR
 
@@ -53,11 +53,11 @@ A few weeks later, somebody joins your team. He loads the source code on his mac
 
 > _« Bruh, why is this working on your machine and not mine?! No, no, this time it's too much, I quit coding. »_
 
-Because you specify ranges and not exact versions for your dependencies, your `package.json` file can actually be resolved in a variety of different ways, depending on what the latest releases of those packages are. This is not a good thing, as it makes the results of the `install` command not predictable. Running it twice with the same `package.json` file could produce two different `node_modules` folders.
+Because you specify ranges and not exact versions for your dependencies, your `package.json` file can actually be resolved in a variety of different ways, depending on what the latest releases of the targeted libraries are. This is not a good thing, as it makes the results of the `install` command not predictable. Executing it twice with the same `package.json` file could produce two different `node_modules` folders.
 
 > 🤔 Wait a second
 >
-> I know what you're thinking. Why not only specifying exact versions for your dependencies (e.g. `react@17.0.2`)? That way, there would be no surprise when running the `install` command twice. Well, although tempting, this reasoning is flawed because you're forgetting something: each of your dependencies has a `package.json` file of its own, in which it declares its dependencies, which your package manager is also responsible for resolving. So even if you only specify exact versions for _your_ dependencies, you can't control the way your dependencies declare _theirs_, which may still be through ranges. No, we need something else.
+> I know what you're thinking. Why not only specifying exact versions for your dependencies (e.g. `react@17.0.2`)? That way, there would be no surprise when running the `install` command twice. Well, although tempting, this reasoning is flawed because you're forgetting something: each of your dependencies has a `package.json` file of its own, in which it declares its dependencies, which your package manager is also responsible for resolving. So, even if you only specify exact versions for _your_ dependencies, you can't control the way your dependencies declare _theirs_, which may still be through ranges. No, we need something else.
 
 ## How does a lockfile work?
 
