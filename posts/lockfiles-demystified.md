@@ -124,11 +124,11 @@ react@^17.0.0:
 
 Why? Because they can cause duplication.
 
-Duplicates are defined by Yarn as _« descriptors with overlapping ranges being resolved and locked to different locators »_[^1]. They are a natural consequence of the package manager's deterministic installs, but they can sometimes pile up and unnecessarily increase the size of your project.
+Duplicates are defined by Yarn as _« descriptors with overlapping ranges being resolved and locked to different locators »_[^1]. They are a natural consequence of package managers' deterministic installs, but they can sometimes pile up and unnecessarily increase the size of your project.
 
 This should not happen too frequently though, as package managers try to avoid duplication in the first place. Let's take two examples, one in which Yarn succeeds doing so and one in which it fails.
 
-**Success example.** If `react@^17.0.0` (a dependency of a dependency) has already been resolved to `react@17.0.2`, running `yarn add react@*` will cause Yarn to reuse `react@17.0.2`, even if the latest version of `react` is actually `react@17.0.3`, thus preventing unnecessary duplication.
+**Success example.** If `react@^17.0.0` (a dependency of a dependency) has already been resolved to `react@17.0.2`, running `yarn add react@*` will cause Yarn to reuse `react@17.0.2`, even if the latest version of `react` is `17.0.3`, thus preventing unnecessary duplication.
 
 **Failure example.** If `react@^17.0.0` (a dependency of a dependency) has already been resolved to `react@17.0.2`, running `yarn add react@17.0.3` will cause Yarn to install `react@17.0.3` because the existing resolution doesn't satisfy the range `17.0.2`. This behaviour can lead to unwanted duplication, since now the lockfile contains two separate resolutions for the two `react` descriptors, even though they have overlapping ranges, which means that the lockfile can be simplified so that both descriptors resolve to `react@17.0.3`.
 
