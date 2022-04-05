@@ -142,22 +142,19 @@ How to take action? The `dedupe` command comes to our rescue. This command shoul
 
 One important thing to mention is that package managers care for one single lockfile: the one that lie at the top level of your project. This means that if some dependency of yours is shipped with a lockfile of its own, the file will be completely ignored by Yarn or npm[^2].
 
-Put differently, if you are building a library with the purpose of distributing it (e.g. through npm), there's no way you can tell the end user's package manager how to resolve your dependencies. It will go through the `package.json` file your package provides and follow the standard strategy (i.e. highest possible version, no duplicate). Consequently, there's a chance that two people installing your library end up with two different dependency tree, depending on latest releases and dependency sharing. If you've been following along, that's not something we should be so happy about but, this time, there's no direct solution.
+Put differently, if you're building a library with the purpose of distributing it (e.g. through npm), there's no way you can tell the end user's package manager how to resolve your dependencies. It will go through the `package.json` file your package provides and follow the standard strategy (i.e. highest possible version, no duplicate). Consequently, there's a chance that two people installing your library end up with two different dependency tree, depending on the context. If you've been following along, that's not something we should be so happy about but, this time, there's no decisive solution.
 
 First, why is that problematic? Well, if you can't predict what exact packages your dependencies will be resolved to by the consumer, you can't say with absolute certitude that your code isn't going to break when executed.
 
-If you had unlimited computational power at your disposal, this problem would be easily solved. You'd compute all possible dependency combinations and run your test suite against each of them. But that'd be far too complex (10 packages + 10 possible resolutions = 1 billion possible combinations).
-
-No, there's nothing you can do to absolutely prevent such a thing to happen. But thankfully, there are a lot of ways to reduce the risk it does. Here are a few ones:
+If you had unlimited computational power at your disposal, this problem would be easily solved. You'd compute all possible dependency combinations and run your test suite against each of them. But you don't. Thankfully, there are a lot of ways you can reduce the risk of a crash. Here are a few ones:
 
 - Limit the number of packages your library depends on. `react`, for instance, only has one dependency: `loose-envify`.
-- Run tests on selected dependency releases only. That's what Yarn do with its own packages[^3].
-- Pick only well-maintained packages. If they have solid test suites, they'll be less likely to introduce a bug in a release.
+- Pick only well-maintained packages. If they have a solid test suite, they'll be less likely to introduce a bug in a release.
 - (Discouraged) Use stricter ranges or exact versions for describing your dependencies. Beware that the more you do that, the less able will the package manager be to optimise the tree.
 
 > ✨ Pro tip
 >
-> Tools like [Dependabot](https://github.com/dependabot/dependabot-core) and [Renovate](https://github.com/renovatebot/renovate) can help you automate dependency updates.
+> Tools like [Dependabot](https://github.com/dependabot/dependabot-core) and [Renovate](https://github.com/renovatebot/renovate) can help you automate lockfile maintenance.
 
 ## Lockfiles and Git
 
@@ -171,4 +168,3 @@ As a conclusion, we can say that lockfiles are an almost perfect solution to a c
 
 [^1]: [https://yarnpkg.com/cli/dedupe](https://yarnpkg.com/cli/dedupe)
 [^2]: With the exception of npm's `npm-shrinkwrap.json` file (a.k.a the « publishable lockfile »). But its usage is [discouraged in most situations](https://docs.npmjs.com/cli/v7/configuring-npm/npm-shrinkwrap-json).
-[^3]: Check out [their workflows](https://github.com/yarnpkg/berry/tree/master/.github/workflows).
