@@ -1,5 +1,5 @@
 {
-  "extends": ["eslint-config-next", "@steadier"],
+  "extends": ["next", "@steadier"],
   "ignorePatterns": [
     "!.*",
     "**/*.d.ts",
