@@ -18,7 +18,7 @@ export const PostMeta = assign(
   })
 );
 
-export const Post = assign(PostMeta, object({ html: string() }));
+export const Post = assign(PostMeta, object({ content: string() }));
 
 /* -----------------------------------------------------------------------------
  * Types

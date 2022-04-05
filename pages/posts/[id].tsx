@@ -5,6 +5,10 @@ import type {
   InferGetStaticPropsType,
 } from "next";
 import Head from "next/head";
+import ReactMarkdown from "react-markdown";
+import rehypeHighlight from "rehype-highlight";
+import remarkGfm from "remark-gfm";
+import "highlight.js/styles/dark.css";
 
 import Date from "../../components/Date";
 import { getPost, getPostIds } from "../../lib/post";
@@ -49,7 +53,12 @@ export default function Post({
         <p>
           <Date dateString={post.creationDate} />
         </p>
-        <div dangerouslySetInnerHTML={{ __html: post.html }} />
+        <ReactMarkdown
+          rehypePlugins={[rehypeHighlight]}
+          remarkPlugins={[remarkGfm]}
+        >
+          {post.content}
+        </ReactMarkdown>
       </article>
       <hr />
       <a

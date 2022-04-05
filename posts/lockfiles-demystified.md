@@ -65,7 +65,7 @@ A lockfile is a file that keeps track of the exact versions your package manager
 
 Let's say that your `package.json` file looks like that:
 
-```jsonc
+```json
 {
   // ...
   "dependencies": {
@@ -82,7 +82,7 @@ After running `yarn install` (or `npm install`) for the first time, here's what 
 react@^17.0.0:
   version "17.0.2"
   resolved "https://registry.yarnpkg.com/react/-/react-17.0.2.tgz#d0b5cc516d29eb3eee383f75b62864cfb6800037"
-  integrity sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA==
+  integrity "sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA=="
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
@@ -104,13 +104,13 @@ So, whether or not to upgrade to `17.0.3` is _your_ decision. And you express it
 
 **Taking back our last example**. Should you run `yarn upgrade react` (or `npm upgrade react`) after version `17.0.3` of `react` was released, your `yarn.lock` (or `package-lock.json`) file would be updated that way:
 
-```
+```bash
 # ...
 
 react@^17.0.0:
   version "17.0.3"
   resolved "https://registry.yarnpkg.com/react/-/react-17.0.3.tgz#d0b5cc516d30eb3eee383f75b62864cfb6800037"
-  integrity sha512-dgbPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA==
+  integrity "sha512-dgbPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA=="
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"

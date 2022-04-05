@@ -65,7 +65,7 @@ li {
   margin: 0.25rem 0;
 }
 
-pre {
+code.hljs.hljs {
   background: var(--dark-gray);
   overflow: scroll;
   margin: 1rem 0;

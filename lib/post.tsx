@@ -1,5 +1,4 @@
 import fm from "front-matter";
-import { marked } from "marked";
 import { readFile, readdir } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -29,9 +28,8 @@ export async function getPost(id: IPost["id"]): Promise<IPost | null> {
   }
   const { attributes, body } = fm(content.toString());
   assert(attributes, PostAttributes);
-  const html = marked(body);
   return {
-    html,
+    content: body,
     id,
     ...attributes,
   };
