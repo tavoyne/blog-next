@@ -28,9 +28,9 @@ blockquote {
   border-left-color: var(--off-black);
   border-left-style: solid;
   border-left-width: 0.25rem;
-  display: inline-block;
-  margin: 0.75rem 0;
-  padding: 0 2.5rem;
+  margin: 1rem 0;
+  overflow: auto;
+  padding: 0 2rem;
 }
 
 body {
@@ -61,10 +61,14 @@ hr {
   margin: 1.245rem 0;
 }
 
+li {
+  margin: 0.25rem 0;
+}
+
 pre {
   background: var(--dark-gray);
   overflow: scroll;
-  margin: 0.75rem 0;
+  margin: 1rem 0;
   padding: 1rem;
   color: white;
 }
