@@ -158,7 +158,7 @@ If you had unlimited computational power at your disposal, this problem would be
 
 ## Lockfiles and Git
 
-Should lockfiles be committed to the repository? You'll find a lot of different answers to that question around the Web, but only one of them is right: **Yes, always**.
+Should lockfiles be committed to the repository? You'll find a lot of different answers to that question around the Web, but only one of them is right: **yes, always**.
 
 Why? Because you want anyone (e.g. a colleague) or anything (e.g. a deployment server) accessing your git repository to use the same version of `react` that you use locally, that you tested your code against. This is critical to prevent errors, as new versions—even backward-compatible ones—may break your code.
 
