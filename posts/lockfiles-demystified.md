@@ -102,7 +102,7 @@ Well, it's true that the `react` version is kind of _locked_ here. But it's not 
 
 So, whether or not to upgrade to `17.0.3` is _your_ decision. And you express it using a simple command: `upgrade`.
 
-**Taking back our last example.** Should you run `yarn upgrade react` (or `npm upgrade react`) after version `17.0.3` of `react` was released, your `yarn.lock` (or `package-lock.json`) file would be updated that way:
+**Taking back our last example**. Should you run `yarn upgrade react` (or `npm upgrade react`) after version `17.0.3` of `react` was released, your `yarn.lock` (or `package-lock.json`) file would be updated that way:
 
 ```
 # ...
@@ -128,15 +128,15 @@ Duplicates are defined by Yarn as _« descriptors with overlapping ranges being
 
 This should not happen too frequently though, as package managers try to avoid duplication in the first place. Let's take two examples, one in which Yarn succeeds doing so and one in which it fails.
 
-**Success example.** If `react@^17.0.0` (a dependency of a dependency) has already been resolved to `react@17.0.2`, running `yarn add react@*` will cause Yarn to reuse `react@17.0.2`, even if the latest version of `react` is `17.0.3`, thus preventing unnecessary duplication.
+**Success example**. If `react@^17.0.0` (a dependency of a dependency) has already been resolved to `react@17.0.2`, running `yarn add react@*` will cause Yarn to reuse `react@17.0.2`, even if the latest version of `react` is `17.0.3`, thus preventing unnecessary duplication.
 
-**Failure example.** If `react@^17.0.0` (a dependency of a dependency) has already been resolved to `react@17.0.2`, running `yarn add react@17.0.3` will cause Yarn to install `react@17.0.3` because the existing resolution doesn't satisfy the range `17.0.2`. This behaviour can lead to unwanted duplication, since now the lockfile contains two separate resolutions for the two `react` descriptors, even though they have overlapping ranges, which means that the lockfile can be simplified so that both descriptors resolve to `react@17.0.3`.
+**Failure example**. If `react@^17.0.0` (a dependency of a dependency) has already been resolved to `react@17.0.2`, running `yarn add react@17.0.3` will cause Yarn to install `react@17.0.3` because the existing resolution doesn't satisfy the range `17.0.2`. This behaviour can lead to unwanted duplication, as now the lockfile contains two separate resolutions for the two `react` descriptors, even though they overlap.
 
 How to take action? The `dedupe` command comes to our rescue. This command should be used with caution though, as it modifies the dependency tree, which can sometimes cause problems when packages don't strictly follow [semver recommendations](https://semver.org/spec/v2.0.0.html). Because of this, it is recommended to also review the changes manually.
 
 > ✨ Pro tip
 >
-> Use the `--check` option of Yarn `v2+`'s `dedupe` command to check if the dependency tree contains any duplicate. Make this part of your CI workflow.
+> Use the `--check` option of Yarn `v2+`'s `dedupe` command to check if the dependency tree contains any duplicate, but without applying any change yet. Make this part of your CI workflow.
 
 ## Distributed libraries
 
@@ -161,9 +161,7 @@ No, there's nothing you can do to absolutely prevent such a thing to happen. But
 
 ## Lockfiles and Git
 
-Should lockfiles be committed to the repository? You'll find a lot of different answers to that question around the Web, but only one of them is right:
-
-**Yes, always.**
+Should lockfiles be committed to the repository? You'll find a lot of different answers to that question around the Web, but only one of them is right: **Yes, always**.
 
 Why? Because you want anyone (e.g. a colleague) or anything (e.g. a deployment server) accessing your git repository to use the same version of `react` that you use locally, that you tested your code against. This is critical to prevent errors, as new versions-even backward-compatible ones-may break your code.
 
