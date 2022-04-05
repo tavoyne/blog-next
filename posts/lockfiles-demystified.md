@@ -167,4 +167,4 @@ Why? Because you want anyone (e.g. a colleague) or anything (e.g. a deployment s
 As a conclusion, we can say that lockfiles are an almost-perfect solution to a complex problem. You have many dependencies, those dependencies have dependencies of their own, and each dependency can be resolved in a variety of different ways: the universe of potential combinations is vast. Lockfiles bring determinism into this mess, enabling you to maintain sovereignty over your codebase.
 
 [^1]: [https://yarnpkg.com/cli/dedupe](https://yarnpkg.com/cli/dedupe)
-[^2]: With the exception of npm's `npm-shrinkwrap.json` file (a.k.a the « publishable lockfile »). But its usage is [discouraged in most situations](https://docs.npmjs.com/cli/v7/configuring-npm/npm-shrinkwrap-json).
+[^2]: With the exception of npm's `npm-shrinkwrap.json` file (a.k.a the _« publishable lockfile »_). But its usage is [discouraged in most situations](https://docs.npmjs.com/cli/v7/configuring-npm/npm-shrinkwrap-json).
