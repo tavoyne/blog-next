@@ -160,11 +160,11 @@ If you had unlimited computational power at your disposal, this problem would be
 
 Should lockfiles be committed to the repository? You'll find a lot of different answers to that question around the Web, but only one of them is right: **Yes, always**.
 
-Why? Because you want anyone (e.g. a colleague) or anything (e.g. a deployment server) accessing your git repository to use the same version of `react` that you use locally, that you tested your code against. This is critical to prevent errors, as new versions-even backward-compatible ones-may break your code.
+Why? Because you want anyone (e.g. a colleague) or anything (e.g. a deployment server) accessing your git repository to use the same version of `react` that you use locally, that you tested your code against. This is critical to prevent errors, as new versions—even backward-compatible ones—may break your code.
 
 ## Conclusion
 
-As a conclusion, we can say that lockfiles are an almost perfect solution to a complex problem. You have many dependencies, those dependencies have dependencies of their own, and each dependency can be resolved in a variety of different ways: the universe of potential combinations is vast. Lockfiles bring determinism to the party, which enables you to maintain sovereignty over your codebase. In order for you code to keep working as time goes, they lock everything, while kindly handing the control panel to you.
+As a conclusion, we can say that lockfiles are an almost-perfect solution to a complex problem. You have many dependencies, those dependencies have dependencies of their own, and each dependency can be resolved in a variety of different ways: the universe of potential combinations is vast. Lockfiles bring determinism to this mess, enabling you to maintain sovereignty over your codebase.
 
 [^1]: [https://yarnpkg.com/cli/dedupe](https://yarnpkg.com/cli/dedupe)
 [^2]: With the exception of npm's `npm-shrinkwrap.json` file (a.k.a the « publishable lockfile »). But its usage is [discouraged in most situations](https://docs.npmjs.com/cli/v7/configuring-npm/npm-shrinkwrap-json).
